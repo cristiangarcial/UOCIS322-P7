@@ -18,7 +18,7 @@ def csv_format(brevet_data):
 class listAll(Resource):
     def get(self, dtype="JSON"):
         topk = request.args.get('dtype', default=-1, type=int)
-        if topk < -1 or topk > db.tododb.count() or topk is None:
+        if topk < -1 or  topk is None:
             topk = db.tododb.count();
         if topk == -1:
             brevet_data = db.tododb.find({}, {"_id": 0, "open": 1, "close": 1}) 

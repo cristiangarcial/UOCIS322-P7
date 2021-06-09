@@ -30,61 +30,44 @@
    <link rel="stylesheet" href="/static/css/calc.css" />      
    <body>
       <div class="container">
-         <h1>ACP Brevet Times Data Display</h1>
-        
+         <h1>ACP Brevet Times Data Display</h1><br><br>
+         <h4>Only select one list option</h4> <br>
          <form role="form" >
 
             <div class="row">
                <div class="col-md-12">
-              		<button id="listAll" name="listAll"> List All</button> 
-              		<button id="listOpenOnly" name="listOpenOnly"> List Open</button>
-                    <button id="listCloseOnly" name="listCloseOnly"> List Close</button>
-                    <input type="checkbox" id="csv" name="csv">                    
-                    <label for="csv">csv</label>
-                    <br></br>
+              		  <input type="checkbox" id="listAll" name="listOption" value="listAll">
+  						<label for="listAll"> listAll</label><br>
+ 						<input type="checkbox" id="listOpenOnly" name="listOption" value="listOpenOnly">
+  						<label for="listOpenOnly"> listOpenOnly</label><br>
+  						<input type="checkbox" id="listCloseOnly" name="listOption" value="listCloseOnly"> 
+  						<label for="listCloseOnly"> listCloseOnly</label><br>
+  						<input type="checkbox" id="csv_json" name="csv_json" value="csv"> 
+  						<label for="csv_json"> CSV, JSON if not selected</label><br>
                     <label for="top" name="top"> TOP:</label>
-                    <input type="text" id="top" name="top">
-
+                    <input type="text" id="top" name="top"><br></br>
+  					<input type="submit" value="Submit">
                </div>
             </div>
         </form>
         
          <script type="text/javascript">
             $(document).ready(function(){
-             // Do the following when the page is finished loading
-			//	var all = $(obj).find("input[name='ListAll']").val();
-            //	var open = $(obj).find("input[name='ListOpen']").val();
-           //     var close = $(obj).find("input[name='ListClose']").val();
-                var csv_or_json = $("#csv_or_json").val();
-                console.log(csv_or_json);
-                var topk = $("#top").val();
-				
-                $('#listAll').click(
+                    var retOption = control.find("input[name='listOption']").val();
+                    var csv_or_json = control.find("input[name='csv_json']").val();
+                	var topk = control.find("input[name='topk']").val();
+					console.log("csv_json ", csv_or_json);
+                    console.log("topk: ", topk);
+                    console.log("return: ", retOption);
+
+           		 $('#submit').click(
                     function(e) {
                     e.preventDefault();
-                    
-                    $.get("/listAll", {topk: topk, csv_or_json: csv_or_json}).done(
+                    $.get("/list", {retOption: retOption, topk: topk, csv_or_json: csv_or_json}).done(
                         function(response) {
-                            console.log("topk: ", topk);
-                 })});
-                
-                $('#listOpenOnly').click(
-                    function(e) {
-                    e.preventDefault();
-                   
-                    $.get("/listOpenOnly", {topk: topk, csv_or_json: csv_or_json}).done(
-                        function(response) {
-                            console.log("topk: ", topk);
-                 })});
-                 
-                 $('#listCloseOnly').click(
-                    function(e) {
-                    e.preventDefault();
-                    
-                    $.get("/listCloseOnly", {topk: topk, csv_or_json: csv_or_json}).done(
-                        function(response) {
-                            console.log("topk: ", topk);
-                 })});
+                            console.log(topK)
+                 })
+                 });
               });
          </script>
       </div>
