@@ -1,0 +1,12 @@
+<table>
+    <th>distance</th>
+    <th>open time</th>
+    <th>close time</th>
+{% for value in items %}
+<TR>
+   <TD>{{value.kms}}</TD>
+   <TD><SPAN>{{value.open}}</SPAN></TD>
+   <TD><SPAN>{{value.close}}</SPAN></TD>
+</TR>
+{% endfor %}
+</table>
