@@ -1,75 +1,12 @@
-<!doctype html>
-<html lang="en">
-   <head>
-      <title>ACP Controle Times</title>
-      <meta charset="utf-8">
-      <!-- 'viewport' is used by bootstrap to respond to device size -->
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <!-- Bootstrap includes javascript and css  (must follow jquery) -->
-      <link
-         rel="stylesheet"
-         href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-         crossorigin="anonymous">
-      <!-- Javascript:  JQuery from a content distribution network (CDN) -->
-      <script
-         src="https://code.jquery.com/jquery-3.5.1.min.js"
-         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-         crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-         crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-         integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
-         crossorigin="anonymous"></script>
-      <!-- moment.js is the JavaScript equivalent of arrow.py -->
-      <script
-      src="{{ url_for('static', filename="js/moment.min.js") }}"></script>
-   </head>
-   <!-- Our own stylesheet -->
-   <link rel="stylesheet" href="/static/css/calc.css" />      
-   <body>
-      <div class="container">
-         <h1>ACP Brevet Times Data Display</h1><br><br>
-         <h4>Only select one list option</h4> <br>
-         <form role="form" >
-
-            <div class="row">
-               <div class="col-md-12">
-              		  <input type="checkbox" id="listAll" name="listOption" value="listAll">
-  						<label for="listAll"> listAll</label><br>
- 						<input type="checkbox" id="listOpenOnly" name="listOption" value="listOpenOnly">
-  						<label for="listOpenOnly"> listOpenOnly</label><br>
-  						<input type="checkbox" id="listCloseOnly" name="listOption" value="listCloseOnly"> 
-  						<label for="listCloseOnly"> listCloseOnly</label><br>
-  						<input type="checkbox" id="csv_json" name="csv_json" value="csv"> 
-  						<label for="csv_json"> CSV, JSON if not selected</label><br>
-                    <label for="top" name="top"> TOP:</label>
-                    <input type="text" id="top" name="top"><br></br>
-  					<input type="submit" value="Submit">
-               </div>
-            </div>
-        </form>
-        
-         <script type="text/javascript">
-            $(document).ready(function(){
-                    var retOption = control.find("input[name='listOption']").val();
-                    var csv_or_json = control.find("input[name='csv_json']").val();
-                	var topk = control.find("input[name='topk']").val();
-					console.log("csv_json ", csv_or_json);
-                    console.log("topk: ", topk);
-                    console.log("return: ", retOption);
-
-           		 $('#submit').click(
-                    function(e) {
-                    e.preventDefault();
-                    $.get("/list", {retOption: retOption, topk: topk, csv_or_json: csv_or_json}).done(
-                        function(response) {
-                            console.log(topK)
-                 })
-                 });
-              });
-         </script>
-      </div>
-   </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<h1>
+		{% if current_user.is_authenticated %}
+		Hi, {{ current_user.fullname }}!
+		{% else %}
+		Hi stranger.
+		{% endif %}
+	</h1>
+</div>
+{% endblock %}
